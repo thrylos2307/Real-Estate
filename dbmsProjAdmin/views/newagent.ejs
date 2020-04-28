@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<title>Node.js MySQL Select</title>
+		<style>html{
+		background-image:linear-gradient(white,orange, lightgreen, white);
+		background-repeat: no-repeat;
+		}td{
+			text-align: center;
+			padding: 5px;
+			font-size: 20px;
+			border-color: brown;
+		}
+		input{
+			border: 2px solid blue;
+			border-radius: 5%;
+			padding: 3px;
+			margin-bottom: 5px;
+			width:auto;
+			font-size:20px;
+		}
+		form{
+		margin:0px;
+		}
+		button{
+			font-size:1.3em;
+		}
+		</style>
+	</head>
+
+	<body>
+
+		<h1>NEW_AGENTS</h1>
+
+		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Your type.."></input>
+
+		<table id="myTable" border="1px" width="100%" height="auto">
+			<tr>
+				<th>Name</th>
+				<th>Email Id</th>
+				<th>Phone No</th>
+				<th>FirmId</th>
+
+			</tr>
+
+
+			<%data.forEach((agent) => {%>
+
+				<tr>
+					<td><%=agent.name%></td>
+					<td><%=agent.email%></td>
+					<td><%=agent.phone%></td>
+					<td><%=agent.firmid%></td>
+					<th><form action="/New_Requests_For_Agents" method="POST"><button type="submit" name="email" value=<%=agent.email%>>Verify</button></th>
+				</tr>
+			<%})%>
+
+		</table>
+
+	</body>
+
+</html>
+
+<script>
+
+function myFunction() {
+	var filter = event.target.value.toUpperCase();
+	var rows = document.querySelector("#myTable tbody").rows;
+
+	for (var i = 0; i < rows.length; i++) {
+		var firstCol = rows[i].cells[0].textContent.toUpperCase();
+		var secondCol = rows[i].cells[1].textContent.toUpperCase();
+		var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+		var fourthCol = rows[i].cells[3].textContent.toUpperCase();
+		if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || fourthCol.indexOf(filter) > -1) {
+			rows[i].style.display = "";
+		} else {
+			rows[i].style.display = "none";
+		}
+	}
+}
+</script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET DATA</title>
+    <style>
+        html {
+            background-image: linear-gradient(red, black);
+            background-repeat: no-repeat;
+        }
+        
+        input {
+            transition: 0.5s;
+            font-size: 20px;
+            margin: 5px;
+            box-shadow: 1px 1px 1px 1px red;
+        }
+        
+        input:hover {
+            padding: 10px;
+            border: 2px solid blue;
+            border-radius: 5px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-form">
+        <h1>GOTO</h1>
+        <form action="/data" method="POST">
+            <input type="submit" name="Type" value="Property" />
+            <input type="submit" name="Type" value="Agent_Details" />
+            <input type="submit" name="Type" value="Listing" />
+            <input type="submit" name="Type" value="Address" />
+            <input type="submit" name="Type" value="House" />
+            <input type="submit" name="Type" value="Apartment" />
+            <input type="submit" name="Type" value="Work_With" />
+            <input type="submit" name="Type" value="Buyer" />
+
+            <input type="submit" name="Type" value="Firm" />
+            <input type="submit" name="Type" value="add_firm" />
+            <input type="submit" name="Type" value="Administrator" />
+            <input type="submit" name="Type" value="LogOut" />
+            <input type="submit" name="Type" value="Delete" />
+            <input type="submit" name="Type" value="Add" />
+            <input type="submit" name="Type" value="New_Requests_For_Agents" />
+
+        </form>
+    </div>
+    <script>
+        $.ajax({
+            type: "post",
+            url: url,
+            success: function(data, text) {
+                //success code here.
+            },
+            error: function(request, status, error) {
+                //error handling here.
+            }
+        });
+    </script>
+</body>
+
+</html>
