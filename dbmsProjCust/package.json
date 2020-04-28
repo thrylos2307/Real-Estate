@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.0.1",
     "async": "^3.2.0",
     "body-parser": "^1.19.0",
     "ejs": "^3.0.2",
@@ -16,6 +17,7 @@
     "express-session": "^1.17.1",
     "mysql": "^2.18.1",
     "passport": "^0.4.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "sendgrid": "^5.2.3"
   }
 }
