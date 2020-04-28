@@ -1,0 +1,91 @@
+<html>
+        <head>
+                <title>Node.js MySQL Select</title>
+                <style>html{
+                background-image:linear-gradient(white,orange, lightgreen, white);
+                background-repeat: no-repeat;
+                }td{
+                        text-align: center;
+                        padding: 5px;
+                        font-size: 20px;
+                        border-color: brown;
+                }
+                input{
+                        border: 2px solid blue;
+                        border-radius: 5%;
+                        padding: 3px;
+                        margin-bottom: 5px;
+                        width:auto;
+                        font-size:20px;
+                }</style>
+        </head>
+
+        <body>
+
+                <h1>Hello Agent</h1>
+
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Your type.."></input>
+
+                <table id="myTable" border="1px" width="100%" height="auto">
+                        <tr>
+                                <th>reg_num</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>FirmId</th>
+                                <th>dataListed</th>
+				<th>Available</th>
+				<th>Address</th>
+				<th>OwnerName</th>
+				<th>Price</th>
+                        </tr>
+
+
+                        <%data.forEach((agent) => {%>
+
+                                <tr>
+                                        <td><%=agent.reg_num%></td>
+                                        <td><%=agent.name%></td>
+                                        <td><%=agent.phone%></td>
+					<td><%=agent.firmId%></td>
+                                        <td><%=agent.date_list%></td>
+                                        <td><%=agent.avilable%></td>
+					<td><%=agent.address%></td>
+                                        <td><%=agent.ownerName%></td>
+                                        <td><%=agent.price%></td>
+                                        
+                                </tr>
+                        <%})%>
+
+                </table>
+                <form action="/agentpage" method = "POST">
+			<input class="input"type="submit" name="update_property" value="DELETE_PROPERTY">
+                        <input class="input" type="submit" name="update_property" value="ADD_PROPERTY">
+                        <input class="input" type="submit" name="update_property" value="NEW_REQUEST">
+		</form>
+        </body>
+</html>
+<script>
+
+function myFunction() {
+        var filter = event.target.value.toUpperCase();
+        var rows = document.querySelector("#myTable tbody").rows;
+
+        for (var i = 0; i < rows.length; i++) {
+                var firstCol = rows[i].cells[0].textContent.toUpperCase();
+                var secondCol = rows[i].cells[1].textContent.toUpperCase();
+                var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+                var fourthCol = rows[i].cells[3].textContent.toUpperCase();
+                var fifthCol = rows[i].cells[4].textContent.toUpperCase();
+		var sixthCol = rows[i].cells[5].textContent.toUpperCase();
+                var seventhCol = rows[i].cells[6].textContent.toUpperCase();
+                var eigthCol = rows[i].cells[7].textContent.toUpperCase();
+		var ninthCol = rows[i].cells[8].textContent.toUpperCase();
+                if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || fourthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1 || seventhCol.indexOf(filter) > -1 || eigthCol.indexOf(filter) > -1 || ninthCol.indexOf(filter) > -1) {
+                        rows[i].style.display = "";
+                } else {
+                        rows[i].style.display = "none";
+                }
+        }
+}
+</script>
+

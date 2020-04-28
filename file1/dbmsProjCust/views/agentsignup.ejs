@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            margin: 20px;
+            padding: 2px;
+            font-size: 20px;
+            display: inline;
+            width: 60%;
+        }
+        
+        p {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-form" style="width: 50%; height: 600px; margin: 20px; margin-left: auto; margin-right: auto; background-color: teal;">
+        <h1 style="margin: 20px; text-align: center;">Sign Up</h1>
+        <h1>SignUp Form For Agent</h1>
+
+        <form action="/agentsignup" method="POST">
+
+            <p>Name : <input type="name" name="Name" placeholder="Name" required></p>
+            <p>Email :<input type="text" name="email" placeholder="email" required></p>
+            <p>Phone No. : <input type="text" name="phoneno" placeholder="PhoneNo...." required></p>
+            <p>FirmId : <input type="number" name="firmid" placeholder="FirmId...." required></p>
+
+
+            <p style="width: 30%;"> <input type="submit" value="Register"></p>
+        </form>
+    </div>
+</body>
+
+</html>

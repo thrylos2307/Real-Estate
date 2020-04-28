@@ -1,0 +1,98 @@
+<html>
+	<head>
+		<title>Agent</title>
+		<style>
+		html{
+		background-image:linear-gradient(white,orange, lightgreen, white);
+		background-repeat: no-repeat;
+			font-size: 20px;
+			border-color: brown;
+		}
+		td{
+			text-align: center;
+			padding: 5px;
+			border: 2px solid blue;
+		}		
+		input{
+			display: inline-block;
+			padding: 20px;
+			
+			border-radius: 5%;
+			padding: 3px;
+			margin-bottom: 5px;
+			width:auto;
+			font-size:20px;
+			margin-top: 50px;
+		}
+		.c2{
+			border: 2px solid black;
+			text-align: center; 
+			margin-top: 30px;
+			margin-left: auto;
+			margin-right: auto;
+			background-color: teal;
+			height: 150px;
+			
+      		}
+
+		</style>
+	</head>
+
+	<body>
+
+		<h1>Agents</h1>
+
+		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Your type..">
+
+		<table id="myTable" border="1px" width="100%" height="auto">
+			<tr>
+				<th>agentId</th>
+				<th>name</th>
+				<th>phone</th>
+				<th>firmId</th>
+				<th>date_list</th>
+			</tr>
+
+			
+			<%data.forEach((agent) => {%>
+
+				<tr>
+					<td><%=agent.agentId%></td>
+					<td><%=agent.name%></td>
+					<td><%=agent.phone%></td>
+					<td><%=agent.firmId%></td>
+					<td><%=agent.date_list%></td>
+				</tr>
+			<%})%>
+
+		</table>
+	<div class="c2">	
+		<form action="/agent" method="POST">
+			<input type="submit" name="data" value="LogIn" style="margin">
+			<input type="submit" name="data" value="SignUp">
+		</form>
+	</div>	
+	</body>
+
+</html>
+
+<script>
+
+function myFunction() {
+	var filter = event.target.value.toUpperCase();
+	var rows = document.querySelector("#myTable tbody").rows;
+
+	for (var i = 0; i < rows.length; i++) {
+		var firstCol = rows[i].cells[0].textContent.toUpperCase();
+		var secondCol = rows[i].cells[1].textContent.toUpperCase();
+		var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+		var fourthCol = rows[i].cells[3].textContent.toUpperCase();
+		var fifthCol = rows[i].cells[4].textContent.toUpperCase();
+		if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || fourthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1) {
+			rows[i].style.display = "";
+		} else {
+			rows[i].style.display = "none";
+		}      
+	}
+}
+</script>

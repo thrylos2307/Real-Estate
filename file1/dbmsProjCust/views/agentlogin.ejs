@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            
+            padding: 2px;
+            font-size: 20px;
+            display: inline;
+        }
+        p{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form" style="width: 50%; height: 400px; margin: 20px; margin-left: auto; margin-right: auto; background-color: teal;" >
+        <h1 style="margin: 20px; text-align: center;">Login Form</h1>
+        <h1>Login Form For Agent</h1>
+        <form action="/agentlogin" method="POST">
+        <p>AgentId : <input type="number" name="agentid" placeholder="agentid..." required><br><br></p>   
+        <p>Password : <input type="password" name="password" placeholder="Password" required><br><br></p> 
+          <p style="margin-left: 70px;">  <input type="submit"></p>
+        </form>
+    </div>
+</body>
+</html>
+

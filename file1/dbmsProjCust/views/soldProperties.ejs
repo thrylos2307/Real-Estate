@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <title>Node.js MySQL Select</title>
+    <style>
+        html {
+            background-image: linear-gradient(white, orange, lightgreen, white);
+            background-repeat: no-repeat;
+        }
+        
+        td {
+            text-align: center;
+            padding: 5px;
+            font-size: 20px;
+            border-color: brown;
+        }
+        
+        input {
+            border: 2px solid blue;
+            border-radius: 5%;
+            padding: 3px;
+            margin-bottom: 5px;
+            width: auto;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>soldProperties</h1>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Your type.."></input>
+
+    <table id="myTable" border="1px" width="100%" height="auto">
+        <tr>
+            <th>reg_num</th>
+            <th>address</th>
+            <th>ownerName</th>
+            <th>price</th>
+            <th>type</th>
+            <th>bathrooms</th>
+            <th>bedrooms</th>
+            <th>size</th>
+            <th>agentid</th>
+        </tr>
+
+
+        <%data.forEach((property) => {%>
+
+            <tr>
+                <td>
+                    <%=property.reg_num%>
+                </td>
+                <td>
+                    <%=property.address%>
+                </td>
+                <td>
+                    <%=property.ownername%>
+                </td>
+                <td>
+                    <%=property.price%>
+                </td>
+                <td>
+                    <%=property.type%>
+                </td>
+                <td>x
+                    <%=property.bathrooms%>
+                </td>
+                <td>
+                    <%=property.bedroooms%>
+                </td>
+                <td>
+                    <%=property.size%>
+                </td>
+                <td>
+                    <%=property.agentid%>
+                </td>
+
+            </tr>
+            <%})%>
+
+    </table>
+
+</body>
+
+</html>
+
+<script>
+    function myFunction() {
+        var filter = event.target.value.toUpperCase();
+        var rows = document.querySelector("#myTable tbody").rows;
+
+        for (var i = 0; i < rows.length; i++) {
+            var firstCol = rows[i].cells[0].textContent.toUpperCase();
+            var secondCol = rows[i].cells[1].textContent.toUpperCase();
+            var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+            var fourthCol = rows[i].cells[3].textContent.toUpperCase();
+            var fifthCol = rows[i].cells[4].textContent.toUpperCase();
+            var sixthCol = rows[i].cells[5].textContent.toUpperCase();
+            var seventhCol = rows[i].cells[6].textContent.toUpperCase();
+            var eigthCol = rows[i].cells[7].textContent.toUpperCase();
+            var ninthCol = rows[i].cells[8].textContent.toUpperCase();
+
+            if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || fourthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1 || seventhCol.indexOf(filter) > -1 || eigthCol.indexOf(filter) > -1 || ninthCol.indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>

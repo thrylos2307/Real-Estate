@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET DATA</title>
+    <style>
+        html{
+                background-image:linear-gradient(red, black);
+                background-repeat: no-repeat;
+        }
+        input{
+                transition:0.5s;
+                font-size:20px;
+                margin: 5px;
+                box-shadow: 1px 1px 1px 1px red;
+        }
+        input:hover{
+                padding:10px;
+                border: 2px solid blue;
+                border-radius: 5px;
+                background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form">
+        <h1>delete the data</h1>
+        <form action = "/delete_property" method = "POST">
+        <input type="text" name="reg_num" placeholder="reg_num" required>
+        <input type="submit"  value="delete Property">
+        </form>
+    </div>
+</body>
+</html>
+<script>
+	function preventBack() { 
+            window.history.forward();  
+        } 
+          
+        setTimeout("preventBack()", 0); 
+          
+        window.onunload = function () { null }; 
+</script>
