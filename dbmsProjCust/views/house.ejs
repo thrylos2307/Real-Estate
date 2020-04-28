@@ -1,0 +1,109 @@
+<html>
+
+<head>
+    <title>houses</title>
+    <style>
+        html {
+            background-image: linear-gradient(white, orange, lightgreen, white);
+            background-repeat: no-repeat;
+            font-size: 20px;
+            border-color: brown;
+        }
+        
+        td {
+            text-align: center;
+            padding: 5px;
+            border: 2px solid blue;
+        }
+        
+        input {
+            border-radius: 5%;
+            padding: 3px;
+            margin-bottom: 5px;
+            width: auto;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>HOUSE</h1>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Your type..">
+
+    <table id="myTable" border="1px" width="100%" height="auto">
+        <tr>
+            <th>AGENTID</th>
+            <th>REG_NUM</th>
+            <th>OWNER NAME</th>
+            <th>PRICE</th>
+            <th>BEDROOMS</th>
+            <th>BATHROOMS</th>
+            <th>TYPE</th>
+            <th>SIZE</th>
+
+        </tr>
+
+
+        <%data.forEach((house) => {%>
+
+            <tr>
+                <td>
+                    <%=house.agentid%>
+                </td>
+                <td>
+                    <%=house.reg_num%>
+                </td>
+                <td>
+                    <%=house.ownername%>
+                </td>
+
+                <td>
+                    <%=house.price%>
+                </td>
+                <td>
+                    <%=house.bedrooms%>
+                </td>
+                <td>
+                    <%=house.bathrooms%>
+                </td>
+
+                <td>
+                    <%=house.size%>
+                </td>
+                <td>
+                    <a href="/house/<%=house.reg_num%>"><button><i>click if interested !</i></button></a>
+                </td>
+            </tr>
+            <%})%>
+
+    </table>
+
+
+
+</body>
+
+</html>
+
+<script>
+    function myFunction() {
+        var filter = event.target.value.toUpperCase();
+        var rows = document.querySelector("#myTable tbody").rows;
+
+        for (var i = 0; i < rows.length; i++) {
+            var firstCol = rows[i].cells[0].textContent.toUpperCase();
+            var secondCol = rows[i].cells[1].textContent.toUpperCase();
+            var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+            var fourthCol = rows[i].cells[3].textContent.toUpperCase();
+            var fifthCol = rows[i].cells[4].textContent.toUpperCase();
+            var sixthCol = rows[i].cells[5].textContent.toUpperCase();
+            var seventhCol = rows[i].cells[6].textContent.toUpperCase();
+            if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || fourthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1 || seventhCol.indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>

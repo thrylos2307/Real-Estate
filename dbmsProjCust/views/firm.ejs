@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <title>Firm</title>
+    <style>
+        html {
+            background-image: linear-gradient(white, orange, lightgreen, white);
+            background-repeat: no-repeat;
+            font-size: 20px;
+            border-color: brown;
+        }
+        
+        td {
+            text-align: center;
+            padding: 5px;
+            border: 2px solid blue;
+        }
+        
+        input {
+            border-radius: 5%;
+            padding: 3px;
+            margin-bottom: 5px;
+            width: auto;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Firm</h1>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Your type..">
+
+    <table id="myTable" border="1px" width="100%" height="auto">
+        <tr>
+            <th>ID</th>
+            <th>name</th>
+        </tr>
+
+
+        <%data.forEach((firm) => {%>
+
+            <tr>
+                <td>
+                    <%=firm.firmid%>
+                </td>
+                <td>
+                    <%=firm.name%>
+                </td>
+            </tr>
+            <%})%>
+
+    </table>
+
+</body>
+
+</html>
+
+<script>
+    function myFunction() {
+        var filter = event.target.value.toUpperCase();
+        var rows = document.querySelector("#myTable tbody").rows;
+
+        for (var i = 0; i < rows.length; i++) {
+            var firstCol = rows[i].cells[0].textContent.toUpperCase();
+            var secondCol = rows[i].cells[1].textContent.toUpperCase();
+            if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>

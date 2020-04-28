@@ -1,22 +1,22 @@
 <html>
 
 <head>
-    <title>Apartments</title>
+    <title>Node.js MySQL Select</title>
     <style>
         html {
             background-image: linear-gradient(white, orange, lightgreen, white);
             background-repeat: no-repeat;
-            font-size: 20px;
-            border-color: brown;
         }
         
         td {
             text-align: center;
             padding: 5px;
-            border: 2px solid blue;
+            font-size: 20px;
+            border-color: brown;
         }
         
         input {
+            border: 2px solid blue;
             border-radius: 5%;
             padding: 3px;
             margin-bottom: 5px;
@@ -28,76 +28,67 @@
 
 <body>
 
-    <h1>Apartments</h1>
+    <h1>Hello Agent</h1>
 
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Your type..">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Your type.."></input>
 
     <table id="myTable" border="1px" width="100%" height="auto">
         <tr>
-            <th>AGENTID</th>
-            <th>REG_NUM</th>
-            <th>OWNER NAME</th>
-            <th>PRICE</th>
-            <th>BEDROOMS</th>
-            <th>BATHROOMS</th>
-            <th>TYPE</th>
-            <th>SIZE</th>
-
+            <th>reg_num</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>FirmId</th>
+            <th>dataListed</th>
+            <th>Available</th>
+            <th>Address</th>
+            <th>OwnerName</th>
+            <th>Price</th>
         </tr>
 
 
-        <%data.forEach((apartment) => {%>
+        <%data.forEach((agent) => {%>
 
             <tr>
                 <td>
-                    <%=apartment.agentId%>
+                    <%=agent.reg_num%>
                 </td>
                 <td>
-                    <%=apartment.reg_num%>
+                    <%=agent.name%>
                 </td>
                 <td>
-                    <%=apartment.ownerName%>
+                    <%=agent.phone%>
+                </td>
+                <td>
+                    <%=agent.firmid%>
+                </td>
+                <td>
+                    <%=agent.date_list%>
+                </td>
+                <td>
+                    <%=agent.available%>
+                </td>
+                <td>
+                    <%=agent.address%>
+                </td>
+                <td>
+                    <%=agent.ownername%>
+                </td>
+                <td>
+                    <%=agent.price%>
                 </td>
 
-                <td>
-                    <%=apartment.price%>
-                </td>
-                <td>
-                    <%=apartment.bedrooms%>
-                </td>
-                <td>
-                    <%=apartment.bathrooms%>
-                </td>
-                <td>
-                    <%=apartment.type%>
-                </td>
-                <td>
-                    <%=apartment.size%>
-                </td>
-                <td>
-                    <div style="text-align: center; padding: 8px; margin-top: 30px; margin-right: auto; margin-left: auto; background-color: teal;
-						width: 80%; height: 100px;">
-                        <form action="/apartment" method="POST">
-
-                            <input type="submit" name="data" value="REGISTER">
-                            <p style="font-weight: bold; color: black;"><i>click if interested !</i></p>
-
-                        </form>
-
-
-                    </div>
-                </td>>
             </tr>
             <%})%>
 
     </table>
-
-
-
+    <form action="/agentpage" method="POST">
+        <input class="input" type="submit" name="update_property" value="DELETE_PROPERTY">
+        <input class="input" type="submit" name="update_property" value="ADD_PROPERTY">
+        <input class="input" type="submit" name="update_property" value="NEW_REQUEST">
+    </form>
 </body>
 
 </html>
-
 <script>
     function myFunction() {
         var filter = event.target.value.toUpperCase();
@@ -111,7 +102,9 @@
             var fifthCol = rows[i].cells[4].textContent.toUpperCase();
             var sixthCol = rows[i].cells[5].textContent.toUpperCase();
             var seventhCol = rows[i].cells[6].textContent.toUpperCase();
-            if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || fourthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1 || seventhCol.indexOf(filter) > -1) {
+            var eigthCol = rows[i].cells[7].textContent.toUpperCase();
+            var ninthCol = rows[i].cells[8].textContent.toUpperCase();
+            if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || fourthCol.indexOf(filter) > -1 || fifthCol.indexOf(filter) > -1 || sixthCol.indexOf(filter) > -1 || seventhCol.indexOf(filter) > -1 || eigthCol.indexOf(filter) > -1 || ninthCol.indexOf(filter) > -1) {
                 rows[i].style.display = "";
             } else {
                 rows[i].style.display = "none";

@@ -72,9 +72,9 @@ app.post('/add_property', function(req, res) {
 
     pool.query('select curdate()', function(err1, res1, hyt) {
         var d = res1;
-        pool.query('insert into listing(agentid,datelisted,sellingDate,available) values(?,?,?,?,?)', [agentid, date_list, new Date(), 'avail'], function(err, results, fields) {
+        pool.query('insert into listing(agentid,reg_num,datelisted,sellingDate,available) values(?,?,?,?,?)', [agentid, reg_num, new Date(), '0000-00-00 00:00:00', 'available'], function(err, results, fields) {
             if (err) console.log(err);
-            pool.query('insert into property(address,ownername,price,type,bathrooms,bedroooms,size,agentid) values(' + address + '","' + ownerName + '",' + price + ',"' + type + '","' + bathrooms + '","' + bedrooms + '","' + size + '","' + agentid + '")', function(error, results, fields) {
+            pool.query('insert into property(reg_num,address,ownername,price,type,bathrooms,bedroooms,size,agentid) values(' + reg_num + ',"' + address + '","' + ownerName + '",' + price + ',"' + type + '","' + bathrooms + '","' + bedrooms + '","' + size + '","' + agentid + '")', function(error, results, fields) {
                 if (error) console.log(error);
                 res.redirect("/agentpage");
             });
@@ -144,12 +144,20 @@ app.post('/new_request', function(req, res) {
     pool.query('select *from new_buyer where reg_num=' + email + ' and email="' + reg_num + '"', function(error, results, fields) {
         console.log(error);
         if (error) console.log(error);
-        pool.query('insert into buyer(name,phone,propertyType) values("' + results[0].name + '",' + results[0].phone + ',"' + 'buy' + '")', function(error1, results, fields) {
-            pool.query('update listing set available="sold", sellingDate=now() where reg_num= ' + email, function(error2, results, fields) {
 
-                if (error1) console.log(error1);
+        pool.query('insert into buyer(name,phone,propertyType) values("' + results[0].name + '",' + results[0].phone + ',"' + 'buy' + '")', function(error1, results1, fields) {
+            if (error1) console.log(error1);
+            pool.query('select buyerid from buyer where name="' + results[0].name + '" and phone=' + results[0].phone + '', function(error2, results2, fields) {
                 if (error2) console.log(error2);
-                res.redirect('/agentpage');
+                pool.query('insert into work_with(buyerid,agentid) values(?,?)', [results2[0].buyerid, agentid], function(error3, results3, fields) {
+                    if (error3) console.log(error3);
+                    pool.query('update listing set available="sold", sellingDate=now() where reg_num= ' + email, function(error4, results4, fields) {
+
+                        if (error1) console.log(error1);
+                        if (error2) console.log(error2);
+                        res.redirect('/agentpage');
+                    });
+                });
             });
         });
     });
@@ -221,7 +229,9 @@ app.get('/data', function(req, res) {
 
 app.post('/data', function(req, res) {
     var type = req.body.Type.toUpperCase();
-    if (type === "PROPERTY") {
+    if (type === "HOME") {
+        res.redirect('/data');
+    } else if (type === "PROPERTY") {
         res.redirect('/properties');
     } else if (type === "SOLDPROPERTY") {
         res.redirect('/soldproperties');
@@ -311,9 +321,16 @@ app.post('/property', function(req, res) {
     res.redirect('/newbuyer');
 
 });
+app.get('/house/:houseID', function(req, res) {
 
-app.post('/apartment', function(req, res) {
-    var type = req.body.data.toUpperCase();
+    propertyID = req.params.houseID;
+    res.redirect('/newbuyer');
+
+});
+
+
+app.get('/apartment/:apartmentID', function(req, res) {
+    propertyID = req.params.apartmentID;
     res.redirect('/newbuyer');
 
 });
@@ -340,13 +357,15 @@ app.get('/listing', (req, res) => {
     });
 });
 app.get('/apartment', (req, res) => {
-    setResHtml("select * from apartment", (responseData) => {
+    setResHtml("select p.agentid, p.reg_num,p.ownername,p.price,p.bathrooms,p.bedrooms,p.size from apartment p natural join listing where listing.available='available'", (responseData) => {
         res.render('./apartment.ejs', { data: responseData });
     });
 });
 
 app.get('/house', (req, res) => {
-    setResHtml("select * from house", (responseData) => {
+
+    setResHtml("select p.agentid, p.reg_num,p.ownername,p.price,p.bathrooms,p.bedrooms,p.size from house p natural join listing where listing.available='available'", (responseData) => {
+
         res.render('./house.ejs', { data: responseData });
     });
 });

@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <title>Agent</title>
+    <style>
+        html {
+            background-image: linear-gradient(white, orange, lightgreen, white);
+            background-repeat: no-repeat;
+            font-size: 20px;
+            border-color: brown;
+        }
+        
+        td {
+            text-align: center;
+            padding: 5px;
+            border: 2px solid blue;
+        }
+        
+        input {
+            display: inline-block;
+            padding: 20px;
+            border-radius: 5%;
+            padding: 3px;
+            margin-bottom: 5px;
+            width: auto;
+            font-size: 20px;
+            margin-top: 50px;
+        }
+        
+        .c2 {
+            border: 2px solid black;
+            text-align: center;
+            margin-top: 30px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: teal;
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>NEW_REQUESTS FOR NEW_BUYER</h1>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Your type..">
+
+    <table id="myTable" border="1px" width="100%" height="auto">
+        <tr>
+
+            <th>email</th>
+            <th>mobile</th>
+            <th>name</th>
+            <th>reg_num</th>
+
+        </tr>
+
+
+        <%data.forEach((new_buyer) => {%>
+
+            <tr>
+                <td>
+                    <%=new_buyer.email%>
+                </td>
+                <td>
+                    <%=new_buyer.phone%>
+                </td>
+                <td>
+                    <%=new_buyer.name%>
+                </td>
+                <td>
+                    <%=new_buyer.reg_num%>
+                </td>
+                <td>
+                    <form action="/new_request" method="POST"><button type="submit" name="new_deal" value="<%=new_buyer.email%>|<%=new_buyer.reg_num%>">new deal</button>
+                </td>
+            </tr>
+            <%})%>
+
+    </table>
+
+</body>
+
+</html>
+
+<script>
+    function myFunction() {
+        var filter = event.target.value.toUpperCase();
+        var rows = document.querySelector("#myTable tbody").rows;
+
+        for (var i = 0; i < rows.length; i++) {
+            var firstCol = rows[i].cells[0].textContent.toUpperCase();
+            var secondCol = rows[i].cells[1].textContent.toUpperCase();
+            var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+            var fourthCol = rows[i].cells[3].textContent.toUpperCase();
+
+            if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || fourthCol.indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>
