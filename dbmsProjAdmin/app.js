@@ -281,7 +281,7 @@ app.get('/add', isLoggedIn, (req, res) => {
 app.post('/add', function(request, response) {
     var agentid = request.body.agentid;
 
-
+    var reg_num = request.body.reg_num;
     var address = request.body.address;
     var room = request.body.room;
     var ownername = request.body.ownername;
@@ -291,10 +291,11 @@ app.post('/add', function(request, response) {
     var size = request.body.size;
 
 
-    pool.query('insert into listing(agentid,datelisted,sellingDate,available) values(' + agentid + ',' + new Date() + '","' + 'NULL' + '","' + 'available' + '")', function(error, results, fields) {
-        pool.query('insert into property(address,ownername,price,type,bathrooms,bedroooms,size,agentid) values("' + address + '","' + ownername + '",' + price + ',"' + type + '",' + room + ',' + bathroom + ',' + size + ',' + agentid + ')', function(error, results, fields) {
+    pool.query('insert into listing(agentid,reg_num,datelisted,sellingDate,available) values(?,?,?,?,?)', [agentid, reg_num, new Date(), "0000-00-00 00:00:00", "available"], function(error, results, fields) {
+        if (error) console.log(error)
+        pool.query('insert into property(reg_num,address,ownername,price,type,bathrooms,bedroooms,size,agentid) values(' + reg_num + ',"' + address + '","' + ownername + '",' + price + ',"' + type + '",' + room + ',' + bathroom + ',' + size + ',' + agentid + ')', function(error1, results, fields) {
 
-            if (error) console.log(error);
+            if (error1) console.log(error1);
             response.redirect("/data");
         });
     });
