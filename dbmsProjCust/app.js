@@ -50,23 +50,113 @@ app.get('/forgetpasswordforagent', function(req, res){
 var random_num = 0;
 var agentf = 0;
 
-app.post('/forgetpasswordforagent', function(req, res) {
-	var email = req.body.email;
-	agentf = req.body.agentid;
-	//random_num = Math.floor(Math.random() * 100000);;
+function funcs(email, res){
 	const msg = {
 		to: email,
 		from: "puneetverma951761@gmail.com",
 		subject: "FORGOT PASSWORD",
 		html: `<html><head></head><body><a href="http://localhost:3007/change">CLICK ON THIS LINK TO CHANGE YOUR PASSWORD</a></body></html>`,
-	};
+	}
+	console.log(email);
 	sgMail.send(msg).then(() => {
+		console.log(email);
 		console.log("FORGET PASSWORD LINK SENT TO "+email);
 		res.redirect("/agent");
 	}).catch((error) => {
 		console.log(error.response.body);
-	})
+	});
+}
 
+
+async function func1(email,agentf, res){
+	console.log("Start query...");
+	
+	await pool.query('select * from agent where agentid='+ agentf, function(err, result, fields) {
+		console.log("working on query...");
+		if(result.length > 0){
+		if(err) {console.log("Agent not found"); res.redirect('forgetpasswordforagent');}
+		
+		else{
+			email = ""+result[0].email; console.log("sending email to " + email); funcs(email, res);
+			if(email === ""){
+				console.log("Incorrect AgentId haviing agentid ='" + agentf+"'");
+				res.redirect('/forgetpasswordforagent');
+			}
+		}
+		}
+		else{
+                res.send(`<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+
+            padding: 2px;
+            font-size: 20px;
+            display: inline;
+        }
+        p{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form" style="width: 50%; height: 400px; margin: 20px; margin-left: auto; margin-right: auto; background-color: teal;" >
+        <h1 style="margin: 20px; text-align: center;">Login Form</h1>
+
+        <form action="/forgetpasswordforagent" method="POST">
+         <p>Agent Id : <input type="number" name="agentid" placeholder="Enter Your valid Agent Id...." required><br><br></p>
+          <p style="margin-left: 70px;">  <input type="submit"></p>
+        </form>
+    </div>
+</body>
+</html>
+<script>alert("YOU ENTERED WRONG AGENTID")</script>`);
+                //res.render('./forget_password.ejs');
+        }
+
+	});}
+/*	else{
+		res.send(`<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+
+            padding: 2px;
+            font-size: 20px;
+            display: inline;
+        }
+        p{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form" style="width: 50%; height: 400px; margin: 20px; margin-left: auto; margin-right: auto; background-color: teal;" >
+        <h1 style="margin: 20px; text-align: center;">Login Form</h1>
+
+        <form action="/forgetpasswordforagent" method="POST">
+         <p>Agent Id : <input type="number" name="agentid" placeholder="Enter Your valid Agent Id...." required><br><br></p>
+          <p style="margin-left: 70px;">  <input type="submit"></p>
+        </form>
+    </div>
+</body>
+</html>
+<script>alert("YOU ENTERED WRONG AGENTID")</script>`);
+		//res.render('./forget_password.ejs');
+	}
+
+}*/
+
+app.post('/forgetpasswordforagent', function(req, res) {
+	//var email = req.body.email
+	console.log("post");
+	var email = "";
+	agentf= req.body.agentid;
+	func1(email, agentf, res);
 });
 
 app.get('/change', function(req, res){

@@ -63,7 +63,107 @@ app.post('/auth', function(request, response) {
             } else {
 
                 console.log("WRONG PASSWORD/USERNAME");
-                response.render('./auth.ejs', { stat: 0 });
+                response.send(`<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .invisible {
+            display: none;
+            visibility: hidden;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            background-image: linear-gradient(blue, red);
+            /*animation: example s ease-in-out infinite alternate;*/
+        }
+        /*@keyframes example{
+                        from {
+                                background-image: linear-gradient(blue, red);
+                        }
+                        to{
+                                background-image: linear-gradient(red, green);
+                        }
+                }*/
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        h1 {
+            margin-top: 200px;
+            font-size: 4rem;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            width: 350px;
+            height: auto;
+        }
+
+        input {
+            box-shadow: -2px -2px black;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .submit {
+            width: 50%;
+            margin-bottom: 0px;
+            align-self: center;
+            height: 40px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            transition: 0.4s;
+        }
+
+        .submit:hover {
+            background-image: linear-gradient(blue, red);
+            padding: 3px;
+            box-shadow: -1px -1px yellow;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="login-form">
+        <h1>Admin Login</h1>
+
+        <form action="/auth" method="POST" class="form">
+            <input type="username" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit"  value="submit">
+        </form>
+
+    </div>
+</body>
+
+</html>
+<script>
+	
+    alert("WRONG USERNAME PASSWORD");
+
+    function preventBack() {
+        window.history.forward();
+    }
+
+    setTimeout("preventBack()", 0);
+
+    window.onunload = function() {
+        null
+    };
+</script>
+`);
 
             }
             response.end();
@@ -154,7 +254,7 @@ app.post('/New_Requests_For_Agents', function(req, res) {
         console.log(error);
         console.log(results[0]);
         pass = results[0].name + results[0].firmid;
-        pool.query('insert into agent(name,phone,firmid,date_list,password) values(?,?,?,?,?)', [results[0].name, results[0].phone, results[0].firmid, new Date(), pass], function(error1, results1, fields1) {
+        pool.query('insert into agent(name,phone,firmid,date_list,password, email) values(?,?,?,?,?,?)', [results[0].name, results[0].phone, results[0].firmid, new Date(), pass, results[0].email], function(error1, results1, fields1) {
 
             console.log(error1);
 
@@ -212,9 +312,9 @@ app.post('/add_agent', function(req, res) {
     var phone = req.body.phone;
     var firmid = req.body.firm;
     var password = req.body.password;
+    var email = req.body.email;
 
-
-    pool.query('insert into agent(name,phone,firmid,date_list,password) values(?,?,?,?,?)', [name, phone, firmid, new Date(), password], function(error, results, fields) {
+    pool.query('insert into agent(name,phone,firmid,date_list,password, email) values(?,?,?,?,?,?)', [name, phone, firmid, new Date(), password, email], function(error, results, fields) {
         if (error) console.log(error);
         res.redirect('/agent');
     });
