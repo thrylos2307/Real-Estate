@@ -12,12 +12,12 @@ The user can register himself in order to track all his previous purchases ,and 
 The agent can register himself and it can be verified by the admin ,wheather he wants to keep him as agent or not .The agent can also add new properties(as they are the trusted one) and can deal with the customer to sell that property and also keep record of the properties that he has sold .
 
 For the relational data base : it can be found in [ER.docx](https://github.com/thrylos2307/DBMS_project-/blob/master/ER.docx) <br>
-Their is login pages for -> 
+Their is login pages for:<br> 
 * Admin 
 * User
 * Agent
-register pages for ->
+Registration pages for :
 * Agent
-* User.
+* User<br>
 One can  import and view the whole database schema from [cls.sql](https://github.com/thrylos2307/DBMS_project-/blob/master/cls.sql)
 
