@@ -6,7 +6,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey("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");
+sgMail.setApiKey('put your sendgrid api key here');
 var app = express();
 app.use(express.static("views"));
 
