@@ -22,7 +22,7 @@
         "js-alert": "^1.0.4",
         "mysql": "^2.18.1",
         "node-red-contrib-rtc-alert-node": "^1.0.5",
-        "nodemailer": "^6.4.6",
+        "nodemailer": "^6.4.16",
         "passport": "^0.4.1",
         "path": "^0.12.7",
         "popups": "^1.1.3",
